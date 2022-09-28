@@ -12,7 +12,8 @@ public class FibonacciCallableDemo{
         }
         for(Future<Integer> future : results){
             try {
-                System.out.println(future.get());
+                Integer integer = future.get();
+                System.out.println(Thread.currentThread().getName()+","+integer);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -39,7 +40,8 @@ class FibonacciCallable implements Callable<Integer> {
     @Override
     public Integer call() {
         Thread.yield();
-        System.out.println(Thread.currentThread().getName());
-        return next();
+        Integer next = next();
+        System.out.println(Thread.currentThread().getName()+" "+next);
+        return next;
     }
 }
